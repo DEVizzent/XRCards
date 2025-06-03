@@ -1,0 +1,40 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="XRCards"
+config/description="A little addon for Godot to create cards games in VR. Godot XR Tools are a mandatory dependecy of this addon, add it to your project before add this one."
+run/main_scene="uid://camwcv0hnef0a"
+config/features=PackedStringArray("4.4", "Forward Plus")
+config/icon="res://icon.png"
+
+[autoload]
+
+XRToolsUserSettings="*res://addons/godot-xr-tools/user_settings/user_settings.gd"
+XRToolsRumbleManager="*res://addons/godot-xr-tools/rumble/rumble_manager.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
+
+[physics]
+
+jolt_physics_3d/simulation/penetration_slop=0.01
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+
+[xr]
+
+openxr/enabled=true
+shaders/enabled=true
