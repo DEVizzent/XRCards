@@ -1,0 +1,42 @@
+[gd_scene load_steps=10 format=3 uid="uid://bucasgmj323va"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_1677u"]
+[ext_resource type="Shape3D" uid="uid://d38i1yty28t8s" path="res://addons/xr_cards/card_shape.tres" id="2_80l0d"]
+[ext_resource type="Script" uid="uid://bay0baljqpj0i" path="res://addons/xr_cards/xr_card.gd" id="2_x71gq"]
+[ext_resource type="Texture2D" uid="uid://b6bp4el47n1f6" path="res://example/assets/card_back.png" id="3_x71gq"]
+[ext_resource type="Material" uid="uid://h7vdysdtgmgu" path="res://example/materials/club-14.tres" id="4_85tqm"]
+[ext_resource type="PackedScene" uid="uid://da2qgxxwwitl6" path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.tscn" id="6_x71gq"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pa0os"]
+size = Vector2(0.065, 0.09)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iw6mt"]
+albedo_texture = ExtResource("3_x71gq")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4t8hp"]
+size = Vector2(0.065, 0.09)
+
+[node name="CardVR" instance=ExtResource("1_1677u")]
+sleeping = true
+freeze_mode = 0
+script = ExtResource("2_x71gq")
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = ExtResource("2_80l0d")
+debug_color = Color(0, 0.6, 0.701961, 1)
+
+[node name="CardMesh" type="Node3D" parent="." index="1"]
+
+[node name="CardBackMesh" type="MeshInstance3D" parent="CardMesh" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_pa0os")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_iw6mt")
+
+[node name="CardFrontMesh" type="MeshInstance3D" parent="CardMesh" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_4t8hp")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_85tqm")
+
+[node name="HighlightRing" parent="." index="2" instance=ExtResource("6_x71gq")]
