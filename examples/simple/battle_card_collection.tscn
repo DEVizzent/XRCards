@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://4iugq2dtidry"]
+
+[ext_resource type="PackedScene" uid="uid://bp502qwj4100j" path="res://addons/xr_cards/xr_card_collection/xr_card_collection.tscn" id="1_rcy2u"]
+[ext_resource type="Script" uid="uid://beh0tl5d3xoyq" path="res://examples/simple/battle_card_collection.gd" id="2_g34yt"]
+
+[node name="XRCardCollection" instance=ExtResource("1_rcy2u")]
+script = ExtResource("2_g34yt")

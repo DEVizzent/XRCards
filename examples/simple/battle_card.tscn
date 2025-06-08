@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckvx1ggw8ene"]
+
+[ext_resource type="PackedScene" uid="uid://bucasgmj323va" path="res://addons/xr_cards/card_vr.tscn" id="1_rjw0n"]
+[ext_resource type="Script" uid="uid://3re61e0nbj77" path="res://examples/simple/battle_card.gd" id="2_q3cko"]
+
+[node name="CardVR" instance=ExtResource("1_rjw0n")]
+script = ExtResource("2_q3cko")
+creature = null

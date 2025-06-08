@@ -1,14 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://dum26o0mmdlu"]
+[gd_scene load_steps=18 format=3 uid="uid://dum26o0mmdlu"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1_kekyg"]
-[ext_resource type="PackedScene" uid="uid://bp502qwj4100j" path="res://src/xr_card_collection/xr_card_collection.tscn" id="2_7jp5s"]
+[ext_resource type="PackedScene" uid="uid://bp502qwj4100j" path="res://addons/xr_cards/xr_card_collection/xr_card_collection.tscn" id="2_7jp5s"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="2_67d7r"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_lvnek"]
-[ext_resource type="PackedScene" uid="uid://bucasgmj323va" path="res://src/card_vr.tscn" id="5_7jp5s"]
-
-[sub_resource type="Environment" id="Environment_7jp5s"]
-ambient_light_color = Color(0.516342, 0.662263, 0.626344, 1)
-ambient_light_energy = 3.0
+[ext_resource type="PackedScene" uid="uid://bucasgmj323va" path="res://addons/xr_cards/card_vr.tscn" id="5_7jp5s"]
+[ext_resource type="PackedScene" uid="uid://4iugq2dtidry" path="res://examples/simple/battle_card_collection.tscn" id="5_dlck0"]
+[ext_resource type="PackedScene" uid="uid://ckvx1ggw8ene" path="res://examples/simple/battle_card.tscn" id="5_dw4ky"]
+[ext_resource type="Script" uid="uid://boo4ad2t5cslg" path="res://examples/simple/creature.gd" id="6_q384g"]
+[ext_resource type="Texture2D" uid="uid://b6rnflbwqmgii" path="res://examples/assets/card_clubs_K.png" id="7_dlck0"]
+[ext_resource type="Texture2D" uid="uid://bld41ruqoitr3" path="res://examples/assets/card_diamonds_J.png" id="8_uw3a3"]
+[ext_resource type="Script" uid="uid://cftpc800ommka" path="res://examples/simple/attribute_label.gd" id="11_uw3a3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7jp5s"]
 albedo_color = Color(0.443137, 0.454902, 1, 1)
@@ -18,6 +20,24 @@ size = Vector3(0.3, 0.2, 0.3)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_clx3e"]
 albedo_color = Color(0.96406, 0.196128, 0, 1)
+
+[sub_resource type="Resource" id="Resource_gyxnv"]
+script = ExtResource("6_q384g")
+texture = ExtResource("7_dlck0")
+attack = 5
+defence = 1
+metadata/_custom_type_script = "uid://boo4ad2t5cslg"
+
+[sub_resource type="Resource" id="Resource_llfll"]
+script = ExtResource("6_q384g")
+texture = ExtResource("8_uw3a3")
+attack = 1
+defence = 4
+metadata/_custom_type_script = "uid://boo4ad2t5cslg"
+
+[sub_resource type="Environment" id="Environment_7jp5s"]
+ambient_light_color = Color(0.516342, 0.662263, 0.626344, 1)
+ambient_light_energy = 3.0
 
 [node name="SceneBase" instance=ExtResource("1_kekyg")]
 
@@ -30,45 +50,67 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00368726, 1.34431)
 
 [node name="FunctionPointer" parent="XROrigin3D/RightHand" index="1" instance=ExtResource("3_lvnek")]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-use_collision = true
-size = Vector3(10, 1, 10)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.356803, 0.538239)
-use_collision = true
-size = Vector3(2, 1, 1)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="3"]
-environment = SubResource("Environment_7jp5s")
-
-[node name="PickableObject" parent="." index="4" instance=ExtResource("5_7jp5s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.901803, 0.71055)
-
-[node name="PickableObject2" parent="." index="5" instance=ExtResource("5_7jp5s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.146234, 0.901803, 0.71055)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="." index="6"]
+[node name="DefenseZone" type="CSGBox3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.429841, 0.87705, 0.879051)
 use_collision = true
 size = Vector3(0.3, 0.1, 0.3)
 material = SubResource("StandardMaterial3D_7jp5s")
 
-[node name="XRCardCollection" parent="CSGBox3D3" index="0" instance=ExtResource("2_7jp5s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06, 0)
+[node name="XRCardCollection" parent="DefenseZone" index="0" instance=ExtResource("5_dlck0")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.054, 0)
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="CSGBox3D3/XRCardCollection" index="2"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="DefenseZone/XRCardCollection" index="2"]
 shape = SubResource("BoxShape3D_r60bf")
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="." index="7"]
+[node name="AttackZone" type="CSGBox3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.542439, 0.87705, 0.879051)
 use_collision = true
 size = Vector3(0.3, 0.1, 0.3)
 material = SubResource("StandardMaterial3D_clx3e")
 
-[node name="XRCardCollection" parent="CSGBox3D4" index="0" instance=ExtResource("2_7jp5s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06, 0)
+[node name="XRCardCollection" parent="AttackZone" index="0" instance=ExtResource("5_dlck0")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.0544163, 0)
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="CSGBox3D4/XRCardCollection" index="2"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="AttackZone/XRCardCollection" index="2"]
 shape = SubResource("BoxShape3D_r60bf")
+
+[node name="CardVR" parent="." index="3" instance=ExtResource("5_dw4ky")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.902, 0.9)
+creature = SubResource("Resource_gyxnv")
+
+[node name="CardVR2" parent="." index="4" instance=ExtResource("5_dw4ky")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120465, 0.902, 0.9)
+creature = SubResource("Resource_llfll")
+
+[node name="CardVR3" parent="." index="5" instance=ExtResource("5_7jp5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.142747, 0.901803, 0.861381)
+
+[node name="Environment" type="Node3D" parent="." index="6"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Environment" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(10, 1, 10)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Environment" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.356803, 0.538239)
+use_collision = true
+size = Vector3(2, 1, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" index="2"]
+environment = SubResource("Environment_7jp5s")
+
+[node name="DefenseLabel3D" type="Label3D" parent="." index="7" node_paths=PackedStringArray("collection")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 1.20585, 0)
+text = "Defense
+0"
+script = ExtResource("11_uw3a3")
+collection = NodePath("../DefenseZone/XRCardCollection")
+
+[node name="AttackLabel3D" type="Label3D" parent="." index="8" node_paths=PackedStringArray("collection")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5195, 1.20585, 0)
+text = "Attack
+0"
+script = ExtResource("11_uw3a3")
+collection = NodePath("../AttackZone/XRCardCollection")
+attribute = 1

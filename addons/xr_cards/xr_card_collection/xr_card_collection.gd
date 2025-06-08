@@ -26,7 +26,10 @@ var cards : Array[XRCard] = []
 var _object_in_grab_area = Array()
 
 func can_add_card(card : Node) -> bool:
-	if not card is XRCard or cards.has(card):
+	if not card is XRCard:
+		return false
+	if cards.has(card):
+		apply_card_layout()
 		return false
 	return cards.size() <= limit
 	
@@ -56,7 +59,7 @@ func _on_card_collection_body_entered(target: Node3D) -> void:
 	if not target.has_method('pick_up'):
 		return
 
-	if not can_add_card(target):
+	if target is not XRCard:
 		return
 	# Add to the list of objects in grab area
 	_object_in_grab_area.push_back(target)
@@ -79,6 +82,9 @@ func _on_card_collection_body_exited(target: Node3D) -> void:
 	# Hide highlight when nothing could be snapped
 	if _object_in_grab_area.is_empty():
 		close_highlight_updated.emit(self, false)
+	# Remove this collection as destination for the card
+	if target is XRCard and target.destination == self:
+		target.set_destination(null)
 
 func _on_target_dropped(card: Node3D) -> void:
 	card.disconnect("dropped", _on_target_dropped)
